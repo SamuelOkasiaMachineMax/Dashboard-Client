@@ -53,7 +53,7 @@ const Page = () => {
 
         async function fetchData() {
             try {
-                const response = await axios.get(`http://127.0.0.1:5000/FFTools/${selectedButtons}/${startDate}/${endDate}`);
+                const response = await axios.get(`SamuelOkasiaMachineMax.pythonanywhere.com/FFTools/${selectedButtons}/${startDate}/${endDate}`);
                 const fetchedData = response.data["866907057595893"];
 
                 // Check if we received data and it's not empty

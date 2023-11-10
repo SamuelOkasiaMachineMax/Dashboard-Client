@@ -9,6 +9,7 @@ import Select from 'react-select';
 const SubgroupFilter = () => {
 
     const API_URL_dev = "http://127.0.0.1:5000/"
+    const API_URL_prod= "https://samuelokasiamachinemax.pythonanywhere.com/"
 
     const [customerData, setCustomerData] = useState({});
     const [selectedKey, setSelectedKey] = useState('');
@@ -18,7 +19,7 @@ const SubgroupFilter = () => {
 
     useEffect(() => {
         // Replace with your actual endpoint URL
-        fetch(API_URL_dev+`/api/CustomerFilter/view`, {
+        fetch(API_URL_prod+`/api/CustomerFilter/view`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -63,7 +64,7 @@ const SubgroupFilter = () => {
         console.log(formData)
 
 
-        const response = await fetch(API_URL_dev+`/api/CustomerFilter/${subOrganizations}`, {
+        const response = await fetch(API_URL_prod+`/api/CustomerFilter/${subOrganizations}`, {
             method: 'POST',
             body: formData,
         });
@@ -104,7 +105,7 @@ const SubgroupFilter = () => {
                     </label>
 
 
-                    {filename && <a className="subgrpfltr__upload--download label" href={`${API_URL_dev}api/download/${filename}`} download>Download Processed File</a>}
+                    {filename && <a className="subgrpfltr__upload--download label" href={`${API_URL_prod}api/download/${filename}`} download>Download Processed File</a>}
                 </div>
             </div>
 
