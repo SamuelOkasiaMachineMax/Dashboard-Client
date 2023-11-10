@@ -1,0 +1,45 @@
+
+.metrics{
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+
+    background-color: var(--white-color);
+    border: 1px solid var(--border-color);
+}
+
+.metrics__main{
+    height: 70%;
+}
+
+.metrics__main--title{
+    margin-top: 1rem;
+}
+
+.metrics__main--value{
+    font-family: var(--font-montserrat);
+    color: var(--fg-color-darkest);
+    font-weight: 300;
+    font-size: 24px;
+    margin-top: 0.3rem;
+    margin-bottom: 1rem;
+}
+
+.metrics__sub{
+    height: 30%;
+
+    border-top: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+
+    display: flex;
+    gap: 0.5rem;
+}
+
+.metrics__sub p{
+    font-family: var(--font-poppins);
+    font-size: 14px;
+    color: var(--fg-color-dark);
+
+    margin: 0.5rem 0;
+}

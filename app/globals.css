@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&family=Poppins:wght@300;400;500&family=Quicksand:wght@500&display=swap');
+
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  scroll-behavior: smooth;
+}
+
+:root {
+  --font-montserrat: 'Monsterant', sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
+  --font-quicksand: 'Quicksand', sans-serif;
+
+  --fg-color-dark: #5A6270;
+  --fg-color-darkest: #444444;
+
+  --bg-color: #F7F8FA;
+  --white-color: #FFFFFF;
+  --border-color: #EBEEF1;
+
+}
+
+
+.main__div{
+  display: flex;
+  flex-direction: row;
+  background-color: #F7F8FA;
+
+  width: 100vw;
+  height: 100%;
+  min-height: 100vh;
+}
+
+.section__padding{
+  padding: 1rem 2rem;
+}
+
+.content__padding{
+  padding: 2rem 2rem;
+}
+
+.content__sub__padding{
+  padding: 0 1rem;
+}
+
+.title--sub{
+  font-family: var(--font-poppins);
+  color: var(--fg-color-dark);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+
+
+.button{
+  border-radius:10px;
+  border: 1px solid var(--border-color);
+  background: #FFF;
+  padding: 0 0.5rem;
+
+  cursor: pointer;
+}
+
+.button__box{
+  border: 1px solid var(--border-color);
+  background: #FFF;
+  width: 18px;
+  height: 18px;
+}
+
+.label{
+  font-family: var(--font-poppins);
+  color: #9AA0AB;
+  font-size: 14px;
+}
+
+
+
+
+
+.css-5wly58-MuiDataGrid-root{
+  background-color: var(--white-color) !important;
+  border: none !important;
+  border-radius: 0 !important;
+
+}
+
+.css-1iyq7zh-MuiDataGrid-columnHeaders{
+  background-color: var(--bg-color) !important;
+  border-top: 1px solid var(--border-color) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  border-radius: 0 !important;
+  padding-left: 0.5rem !important;
+}
+
+.css-t89xny-MuiDataGrid-columnHeaderTitle{
+  font-family: var(--font-poppins) !important;
+  color: #9AA0AB !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}
+
+.MuiDataGrid-row {
+  height: 200px !important;
+}
+
+
+.MuiDataGrid-cellContent {
+  font-family: var(--font-poppins) !important;
+  color: var(--fg-color-dark);
+
+  padding: 0 0.5rem !important;  /* Adjust as needed */
+  margin: 2.5rem 0 !important;
+
+  width: 150px !important;
+  min-width: 150px !important;
+  max-width: 150px !important;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.MuiDataGrid-cellContent-alerts{
+  font-family: var(--font-poppins) !important;
+  color: var(--fg-color-dark) !important;
+
+  padding: 0 0.5rem !important;  /* Adjust as needed */
+  margin: 2.5rem 0 !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  width:100% !important;
+}

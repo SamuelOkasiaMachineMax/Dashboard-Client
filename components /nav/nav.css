@@ -1,0 +1,37 @@
+
+.nav{
+    display: flex;
+    flex-direction: column;
+
+    min-height: 100%;
+    width: 300px;
+
+    background-color: #FFFFFF;
+    border: 1px solid #EBEEF1;
+}
+
+.nav__title--title{
+    font-family: var(--font-montserrat);
+    color: var(--fg-color-darkest);
+    font-weight: 500;
+}
+
+.nav__menu{
+    display: flex;
+    flex-direction: column;
+    margin: 5rem 0;
+    gap: 3rem;
+}
+.nav__menu p{
+    color: var(--fg-color-dark);
+    font-family: var(--font-poppins);
+    font-weight: 500;
+    display: flex;
+    gap: 0.5rem;
+
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+

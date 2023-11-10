@@ -1,0 +1,12 @@
+.geofence__content{
+    padding: 2rem;
+}
+
+.geofence__content__file--label{
+    cursor: pointer;
+    padding: 0.4rem;
+}
+
+.geofence__content__file--download{
+    margin-left: 2rem;
+}

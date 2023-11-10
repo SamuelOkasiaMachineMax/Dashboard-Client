@@ -1,0 +1,40 @@
+.FFTools{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.FFTools__content{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.FFTools__content__input{
+    background-color: var(--white-color);
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+
+    gap: 0.5rem;
+}
+
+.FFTools__content__range{
+    display: flex;
+    flex-direction: row;
+    background-color: var(--white-color);
+
+    padding: 1rem;
+    gap:1rem
+
+}
+
+.FFTools__content__variables{
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: var(--white-color);
+
+}

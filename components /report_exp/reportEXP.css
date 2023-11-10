@@ -1,0 +1,30 @@
+
+.reportEXP{
+    display: flex;
+    gap: 2rem;
+
+    background-color: var(--white-color);
+    border: 1px solid var(--border-color);
+    padding: 1rem;
+}
+
+.reportEXP__content{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.reportEXP__actions{
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    align-items: center;
+}
+
+.reportEXP__content p{
+}
+
+.reportEXP__actions--view{
+    cursor: pointer;
+    background-color: var(--white-color);
+}

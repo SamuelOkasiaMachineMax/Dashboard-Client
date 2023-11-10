@@ -1,0 +1,27 @@
+.subgrpfltr{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.subgrpfltr__select{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+
+.subgrpfltr__suborgs{
+    padding: 0.5rem;
+    display: flex;
+}
+
+.subgrpfltr__select--view{
+    background-color: var(--bg-color);
+    cursor: pointer;
+}
+
+.subgrpfltr__upload--download{
+   margin-left: 1rem;
+}

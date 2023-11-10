@@ -1,0 +1,27 @@
+
+.telamatics{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.telamatics__header{
+    display: flex;
+    gap: 2rem;
+}
+
+.telamatics__content{
+    display: flex;
+    gap: 2rem;
+    padding-top: 0;
+
+}
+
+.telamatics__content__customers{
+    width: 40%;
+}
+
+.telamatics__content__machines{
+    flex: 2;
+}

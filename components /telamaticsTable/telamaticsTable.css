@@ -1,0 +1,105 @@
+.telamaticsTable{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    min-width: 100%;
+    background-color: var(--white-color);
+    border: 1px solid var(--border-color);
+}
+
+.telamaticsTable__header{
+    display: flex;
+    align-items: center;
+    background-color: var(--white-color);
+    width: 100%;
+}
+
+.telamaticsTable__header--title{
+    margin: 1rem 0;
+}
+
+.telamaticsTable__header__search{
+    margin: 1rem 0;
+}
+
+.telamaticsTable__header__search--search{
+    font-family: var(--font-quicksand);
+    color: #B9BEC6;
+    font-weight: 500;
+    margin-left: 3rem;
+}
+
+.telamaticsTable__header__search--search:focus{
+    outline: none;
+}
+
+.telamaticsTable__header--total{
+    margin-left: auto;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+
+.css-5wly58-MuiDataGrid-root{
+    background-color: var(--white-color) !important;
+    border: none !important;
+    border-radius: 0 !important;
+
+}
+
+.css-1iyq7zh-MuiDataGrid-columnHeaders{
+    background-color: var(--bg-color) !important;
+    border-top: 1px solid var(--border-color) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    border-radius: 0 !important;
+    padding-left: 0.5rem !important;
+}
+
+.css-t89xny-MuiDataGrid-columnHeaderTitle{
+    font-family: var(--font-poppins) !important;
+    color: #9AA0AB !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+}
+
+.MuiDataGrid-row {
+    height: 200px !important;
+}
+
+.myCustomCell {
+    /*width: 20px !important;
+    min-width: 20px !important;
+    max-width: 20px !important;*/
+}
+
+.MuiDataGrid-Cell-Text{
+    padding: 0 0.5rem !important;  /* Adjust as needed */
+    margin: 2.5rem 0 !important;
+
+    width: 150px !important;
+    min-width: 150px !important;
+    max-width: 150px !important;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/*.myCustomCell p {
+    width: 100px !important;
+    min-width: 100px !important;
+    max-width: 100px !important;
+}*/
+
+
+/*
+.MuiDataGrid-Cell-Text{
+    display: flex;
+    flex-direction: column;
+}
+
+.MuiDataGrid-Cell-Text p{
+    width: 40px;
+}*/
