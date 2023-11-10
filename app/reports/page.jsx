@@ -44,10 +44,16 @@ const Page = () => {
                     </div>
                     <div className="report__content__header--reports">
                         {reports.map(([customer, reportName], index) => (
-                            <Report_exp customer={customer} name={reportName} ssetViewCustomer={setViewCustomer} ssetViewName={setViewName}/>
-                            )
-                        )}
+                            <Report_exp
+                                key={`${customer}-${reportName}-${index}`} // Unique key prop
+                                customer={customer}
+                                name={reportName}
+                                ssetViewCustomer={setViewCustomer}
+                                ssetViewName={setViewName}
+                            />
+                        ))}
                     </div>
+
                 </div>
 
 
