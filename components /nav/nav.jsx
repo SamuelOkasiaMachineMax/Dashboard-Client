@@ -2,11 +2,11 @@ import React from 'react';
 import './nav.css'
 import Link from 'next/link'
 
-import { AiFillHome } from "react-icons/Ai"
-import { GrDocumentMissing } from "react-icons/Gr"
-import { TbDatabaseOff,TbReportSearch } from "react-icons/Tb"
-import { LiaToolsSolid } from "react-icons/Lia"
-import { FaToolbox } from "react-icons/Fa"
+import { AiFillHome } from "react-icons/ai"
+import { GrDocumentMissing } from "react-icons/gr"
+import { TbDatabaseOff,TbReportSearch } from "react-icons/tb"
+import { LiaToolsSolid } from "react-icons/lia"
+import { FaToolbox } from "react-icons/fa"
 const Nav = () => {
     return (
         <div className="nav section__padding">
