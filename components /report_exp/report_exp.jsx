@@ -1,7 +1,7 @@
 import React from 'react';
 import "./reportEXP.css"
 
-import { BsFileEarmarkExcel } from "react-icons/bs";
+import { AiFillFileExcel } from "react-icons/Ai";
 import { FaRegEye } from "react-icons/Fa";
 const ReportExp = ({customer,name,ssetViewCustomer,ssetViewName}) => {
     return (
@@ -17,7 +17,7 @@ const ReportExp = ({customer,name,ssetViewCustomer,ssetViewName}) => {
                 }}>
                     <FaRegEye size={22} color={"#5A6270"}/></button>
 
-                <a href={`http://localhost:5000/reports/${customer}/${name}/download`} download={`${name}.xlsx`}><BsFileEarmarkExcel size={20} color={"#5A6270"}/></a>
+                <a href={`http://localhost:5000/reports/${customer}/${name}/download`} download={`${name}.xlsx`}><AiFillFileExcel size={20} color={"#5A6270"}/></a>
 
             </div>
         </div>

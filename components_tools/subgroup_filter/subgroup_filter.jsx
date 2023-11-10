@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import "./subgroup_filter.css"
 
-import {BsFillEyeFill} from "react-icons/Bs";
 import Select from 'react-select';
 
 

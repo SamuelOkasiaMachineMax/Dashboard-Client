@@ -1,9 +1,9 @@
 import React from 'react';
 import './nav.css'
-import Link from 'next/Link'
+import Link from 'next/link'
 
-import { BiHomeAlt2 } from "react-icons/Bi"
-import { HiOutlineDocumentReport } from "react-icons/Hi"
+import { AiFillHome } from "react-icons/Ai"
+import { GrDocumentMissing } from "react-icons/Gr"
 import { TbDatabaseOff,TbReportSearch } from "react-icons/Tb"
 import { LiaToolsSolid } from "react-icons/Lia"
 import { FaToolbox } from "react-icons/Fa"
@@ -15,10 +15,10 @@ const Nav = () => {
             </div>
             <div className="nav__menu">
                     <Link href="./" style={{ textDecoration: 'none' }}>
-                        <p><BiHomeAlt2 size={20}/>Home</p>
+                        <p><AiFillHome size={20}/>Home</p>
                     </Link>
                     <Link href="/billing" style={{ textDecoration: 'none' }}>
-                        <p><HiOutlineDocumentReport size={22}/>Billing</p>
+                        <p><GrDocumentMissing size={22}/>Billing</p>
                     </Link>
                     <Link href="/telamatics" style={{ textDecoration: 'none' }}>
                         <p><TbDatabaseOff size={21}/>Telamatics</p>
