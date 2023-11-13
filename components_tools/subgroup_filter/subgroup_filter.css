@@ -22,6 +22,20 @@
     cursor: pointer;
 }
 
+.subgrpfltr__upload{
+    display: flex;
+
+}
+.subgrpfltr__upload__download{
+    display: flex;
+
+}
+
 .subgrpfltr__upload--download{
    margin-left: 1rem;
+}
+
+.subgrpfltr__upload--loading{
+    margin-left: 1rem;
+    color: green;
 }

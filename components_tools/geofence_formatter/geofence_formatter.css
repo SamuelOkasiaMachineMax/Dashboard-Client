@@ -1,5 +1,13 @@
 .geofence__content{
     padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.geofence__content__file__container{
+    display: flex;
+    gap: 1rem;
 }
 
 .geofence__content__file--label{
@@ -8,5 +16,9 @@
 }
 
 .geofence__content__file--download{
-    margin-left: 2rem;
+    color: #0057E2;
+}
+
+.geofence__content__file__download--download{
+    color: green;
 }
