@@ -32,7 +32,7 @@ const GeofenceFormatter = () => {
         formData.append('file', file);
 
         try {
-            const response = await fetch(API_URL_dev + 'api/GeoFenceFormatter', {
+            const response = await fetch(API_URL_IN_USE + 'api/GeoFenceFormatter', {
                 method: 'POST',
                 body: formData,
             });
