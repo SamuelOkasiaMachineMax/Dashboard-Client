@@ -8,6 +8,9 @@ import Title from "@/components /title/title";
 import {BiChevronDown} from "react-icons/bi";
 const Page = () => {
 
+    const API_URL_dev = "http://127.0.0.1:5000/FFTools"
+    const API_URL_prod= "https://samuelokasiamachinemax.pythonanywhere.com/FFTools/"
+
     const [sensor, setSensor] = useState("");
     const [rows, setRows] = useState([]);
     const [startDate, setStartDate] = useState('');
@@ -53,7 +56,7 @@ const Page = () => {
 
         async function fetchData() {
             try {
-                const response = await axios.get(`SamuelOkasiaMachineMax.pythonanywhere.com/FFTools/${selectedButtons}/${startDate}/${endDate}`);
+                const response = await axios.get(`${API_URL_prod}/${selectedButtons}/${startDate}/${endDate}`);
                 const fetchedData = response.data["866907057595893"];
 
                 // Check if we received data and it's not empty
