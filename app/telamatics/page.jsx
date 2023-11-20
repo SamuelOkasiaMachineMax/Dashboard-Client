@@ -66,7 +66,7 @@ const Page = () => {
             <Title title="Telematics"/>
             <div className="telamatics__header content__padding">
                 <Upload onUpload={setData}/>
-                <Metrics main_title="Machine reporting no telamatics" main_value={102} sub_title="Last month" sub_value="N/A"/>
+                <Metrics main_title="Machine reporting no telematics" main_value={102} sub_title="Last month" sub_value="N/A"/>
             </div>
 
             <div className="telamatics__content content__padding">
