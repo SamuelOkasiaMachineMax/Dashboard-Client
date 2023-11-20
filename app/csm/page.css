@@ -1,0 +1,15 @@
+
+.csm{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.csm__content{
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    height: 100%;
+}

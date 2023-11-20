@@ -50,7 +50,7 @@ const Upload = ({onUpload}) => {
                     />
 
                     {/* Your custom button or text */}
-                    <label htmlFor="fileUpload" className="button title--sub">Upload Telamatics File +</label>
+                    <label htmlFor="fileUpload" className="button title--sub">Upload Telematics File +</label>
                     <a className="upload__main__button--filename">{filename}</a>
                 </div>
                 <div className="upload__main__icon">

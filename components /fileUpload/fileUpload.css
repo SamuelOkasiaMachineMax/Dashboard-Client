@@ -1,0 +1,50 @@
+
+.fileupload{
+    display: flex;
+    flex-direction: column;
+
+    background-color: var(--white-color);
+    border: 1px solid var(--border-color);
+}
+
+.fileupload__content{
+    display: flex;
+}
+
+.fileupload__content__button{
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+    width: 125px;
+}
+
+.fileupload__content__button--input{
+    margin: 0 0.5rem;
+}
+
+.fileupload__content__button--filename{
+    font-family: var(--font-quicksand);
+    font-size: 12px;
+    margin: 0.5rem 0.5rem 0 0.5rem;
+
+    color: var(--fg-color-dark);
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.fileupload__content__button--filename:hover{
+
+    background-color: var(--bg-color);
+    padding: 0.2rem;
+    max-width: 100%;
+    white-space: normal;
+    margin-top: 40px;
+    position: fixed;
+
+}
+
+.fileupload__content__icon{
+    margin: auto 0;
+}

@@ -7,6 +7,9 @@ import { GrDocumentMissing } from "react-icons/gr"
 import { TbDatabaseOff,TbReportSearch } from "react-icons/tb"
 import { LiaToolsSolid } from "react-icons/lia"
 import { FaToolbox } from "react-icons/fa"
+import { RiTeamLine } from "react-icons/ri";
+import { RiBillLine } from "react-icons/ri";
+
 const Nav = () => {
     return (
         <div className="nav section__padding">
@@ -18,10 +21,10 @@ const Nav = () => {
                         <p><AiFillHome size={20}/>Home</p>
                     </Link>
                     <Link href="/billing" style={{ textDecoration: 'none' }}>
-                        <p><GrDocumentMissing size={22}/>Billing</p>
+                        <p><RiBillLine size={22}/>Billing</p>
                     </Link>
                     <Link href="/telamatics" style={{ textDecoration: 'none' }}>
-                        <p><TbDatabaseOff size={21}/>Telamatics</p>
+                        <p><TbDatabaseOff size={21}/>Telematics</p>
                     </Link>
                     <Link href="/reports" style={{ textDecoration: 'none' }}>
                         <p><TbReportSearch size={21}/>Reports</p>
@@ -34,6 +37,11 @@ const Nav = () => {
                     <Link href="/FFTools" style={{ textDecoration: 'none' }}>
                         <p><FaToolbox size={21}/>FFTools</p>
                     </Link>
+
+                    <Link href="/csm" style={{ textDecoration: 'none' }}>
+                        <p><RiTeamLine size={21}/>CSM</p>
+                    </Link>
+
             </div>
         </div>
     );
