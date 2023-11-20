@@ -13,7 +13,6 @@ const Page = () => {
                     <FileUpload />
                 </div>
                 <div className="csm__content__view">
-                    <p>Hello</p>
                 </div>
             </div>
         </div>
