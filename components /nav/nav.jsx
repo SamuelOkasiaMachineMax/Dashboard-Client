@@ -8,7 +8,7 @@ import { TbDatabaseOff,TbReportSearch } from "react-icons/tb"
 import { LiaToolsSolid } from "react-icons/lia"
 import { FaToolbox } from "react-icons/fa"
 import { RiTeamLine } from "react-icons/ri";
-import { RiBillLine } from "react-icons/ri";
+import { RiBillLine, RiCustomerService2Line } from "react-icons/ri";
 
 const Nav = () => {
     return (
@@ -41,6 +41,10 @@ const Nav = () => {
                     <Link href="/csm" style={{ textDecoration: 'none' }}>
                         <p><RiTeamLine size={21}/>CSM</p>
                     </Link>
+
+                    {/*<Link href="/cs" style={{ textDecoration: 'none' }}>*/}
+                    {/*    <p><RiCustomerService2Line size={21}/>CS</p>*/}
+                    {/*</Link>*/}
 
             </div>
         </div>

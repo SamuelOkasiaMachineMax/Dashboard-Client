@@ -4,6 +4,8 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+
+    background-color: var(--bg-color);
 }
 
 .csm__content{
@@ -12,4 +14,25 @@
 
     width: 100%;
     height: 100%;
+
+    gap: 2rem;
+
+}
+
+.csm__content__date{
+    padding: 0.5rem;
+    background-color: #F7F8FA;
+    --bg-color: ;
+    --white-color: #FFFFFF;
+    border: 1px solid #EBEEF1;
+}
+
+.csm__content__date p{
+    color: green;
+}
+
+.csm__content__view{
+    border: 1px solid var(--border-color);
+    height: 700px;
+    width: 100%;
 }
