@@ -43,6 +43,8 @@ const Page = () => {
             { value: '679', label: 'PotterPlant' }
         ]
 
+    const createUser = ['email','name','lastname','role','organisation']
+
     return (
         <div className="cs">
             <Title title="Customer Service" />
@@ -58,73 +60,6 @@ const Page = () => {
                         ))}
                 </div>
 
-                <div className="cs__content__type">
-
-                    <div className="cs__content__type__header">
-                        <button className="title--sub cs__content__type__header--button">Rental End User</button>
-                        <button className="title--sub cs__content__type__header--button">Rental User</button>
-                    </div>
-
-                    <div className="cs__content__type__subHeader">
-                        <p className="title--sub">Body</p>
-                        <p className="label">Status: </p>
-                    </div>
-
-                    <div className="cs__content__type__body">
-                        <form onSubmit={handleSubmit}>
-
-                            <div className="cs__content__type__body__field">
-                                <label className="label" htmlFor="email">Email</label>
-                                <input
-                                    className="json--value"
-                                    id="email"
-                                    type="email"
-                                    value={email}
-                                    onChange={handleEmailChange}
-                                    placeholder="Enter your email"
-                                />
-                            </div>
-
-                            <div className="cs__content__type__body__field">
-                                <label className="label" htmlFor="email">Password</label>
-                                <input
-                                    className="json--value"
-                                    placeholder="Password"
-                                />
-                            </div>
-
-                            <div className="cs__content__type__body__field">
-                                <label className="label" htmlFor="email">Name</label>
-                                <input
-                                    className="json--value"
-                                    placeholder="Name"
-                                />
-                            </div>
-
-                            <div className="cs__content__type__body__field">
-                                <label className="label" htmlFor="email">Surname</label>
-                                <input
-                                    className="json--value"
-                                    placeholder="Password"
-                                />
-                            </div>
-
-
-                            <Select placeholder="Select Org" options={options} onChange={(choice) => setChoice(choice)}
-                            />
-
-
-                            {error && <div style={{ color: 'red' }} className="label">{error}</div>}
-
-                            <button type="submit" disabled={!!error}>Submit</button>
-                        </form>
-
-
-                    </div>
-
-
-
-                </div>
 
 
             </div>

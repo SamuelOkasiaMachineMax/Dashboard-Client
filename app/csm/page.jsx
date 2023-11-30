@@ -142,6 +142,7 @@ const Page = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [file, setFile] = useState("");
     const [filename, setFilename] = useState("No file selected");
+    const [value, setValue] = useState('CSM'); // Initial value
 
     const handleUpload = async (event) => {
         const file = event.target.files[0];
@@ -159,7 +160,7 @@ const Page = () => {
         formData.append('file', file);
 
         try {
-            const response = await fetch( API_URL_IN_USE + `csm`, {
+            const response = await fetch( API_URL_IN_USE + `csm/${value}`, {
                 method: 'POST',
                 body: formData,
             });
@@ -180,6 +181,9 @@ const Page = () => {
             setIsLoading(false); // Stop loading
         }
     };
+
+
+
 
     return (
         <div className="csm">
@@ -206,8 +210,26 @@ const Page = () => {
                             <div className="fileupload__content__icon">
                                 {filename === 'No file selected' ? < LuFile size={55} color="#5A6270"/> : <LuFileCheck2 size={55} color="#2FA769"/> }
                             </div>
+
+                            <div className="fileupload__content__overview">
+                                <button
+                                    onClick={() => setValue('CSM')}
+                                    className={`fileupload__content__overview--button label ${value === 'CSM' ? 'selected' : 'unselected'}`}>
+                                    CSM Overview
+                                </button>
+
+                                <button
+                                    onClick={() => setValue('FULL')}
+                                    className={`fileupload__content__overview--button label ${value === 'FULL' ? 'selected' : 'unselected'}`}>
+                                    Full Overview
+                                </button>
+                            </div>
                         </div>
+
+
+
                     </div>
+
 
 
                 </div>
