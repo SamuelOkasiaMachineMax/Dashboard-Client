@@ -33,6 +33,6 @@
 
 .csm__content__view{
     border: 1px solid var(--border-color);
-    height: 700px;
     width: 100%;
+    height: 70%;
 }
