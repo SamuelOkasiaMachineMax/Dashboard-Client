@@ -49,9 +49,9 @@ const Page = () => {
             <div className="cs__content section__padding">
                 <div className="cs__content__menu">
                     {
-                        menu.map((item)=>   (
+                        menu.map((item, index)=>   (
 
-                            <button className="cs__content__menu--button title--sub">
+                            <button key={index} className="cs__content__menu--button title--sub">
                                 {item}
                             </button>
 
