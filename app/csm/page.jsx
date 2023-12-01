@@ -8,6 +8,8 @@ import FileUpload from "@/components /fileUpload/fileUpload";
 
 import './page.css'
 import {LuFile, LuFileCheck2} from "react-icons/lu";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 const Page = () => {
 
     const API_URL_dev = "http://127.0.0.1:5000/"
@@ -15,7 +17,6 @@ const Page = () => {
 
     const API_URL_IN_USE = API_URL_prod
 
-    const [data, setData] = useState([]);
 
     //
     // useEffect(() => {
@@ -82,6 +83,14 @@ const Page = () => {
 
 
     const columnGroupingModel = [
+        // {
+        //     groupId: 'identity',
+        //     headerName: 'Identity',
+        //     children: [
+        //         { field: 'Customer' },
+        //     ],
+        // },
+
         {
             groupId: 'responsive',
             headerName: 'Responsive',
@@ -91,6 +100,8 @@ const Page = () => {
                 { field: 'Responsive_LORA' },
                 { field: 'Responsive_FMC225' },
                 { field: 'Responsive_FMC230' },
+                { field: 'Responsive_FMC125' },
+
 
             ],
         },
@@ -103,6 +114,8 @@ const Page = () => {
                 { field: 'Unresponsive_LORA' },
                 { field: 'Unresponsive_FMC225' },
                 { field: 'Unresponsive_FMC230' },
+                { field: 'Unresponsive_FMC125' },
+
             ],
         },
 
@@ -118,31 +131,42 @@ const Page = () => {
 
 // Define your columns as usual
     const columns = [
+
+
         { field: 'Customer', headerName: 'Customer', width: 150 },
+
+        { field: 'Total Responsive', headerName: 'Responsive', width: 120 },
+        { field: 'Total Unresponsive', headerName: 'Unresponsive', width: 120 },
 
         { field: 'Responsive_FMT100', headerName: 'FMT100', width: 90 },
         { field: 'Responsive_CELLULAR', headerName: 'CELLULAR', width: 90 },
         { field: 'Responsive_LORA', headerName: 'LORA', width: 90 },
         { field: 'Responsive_FMC225', headerName: 'FMC225', width: 90 },
         { field: 'Responsive_FMC230', headerName: 'FMC230', width: 90 },
+        { field: 'Responsive_FMC125', headerName: 'FMC125', width: 90 },
+
 
         { field: 'Unresponsive_FMT100', headerName: 'FMT100', width: 90 },
         { field: 'Unresponsive_CELLULAR', headerName: 'CELLULAR', width: 90 },
         { field: 'Unresponsive_LORA', headerName: 'LORA', width: 90 },
         { field: 'Unresponsive_FMC225', headerName: 'FMC225', width: 90 },
         { field: 'Unresponsive_FMC230', headerName: 'FMC230', width: 90 },
+        { field: 'Unresponsive_FMC125', headerName: 'FMC125', width: 90 },
 
-        { field: 'Total Responsive', headerName: 'Responsive', width: 120 },
-        { field: 'Total Unresponsive', headerName: 'Unresponsive', width: 120 },
+
+
 
 
 
         // ... other columns
     ];
+    const [dataCSM, setDataCSM] = useState([]);
+    const [dataFULL, setDataFULL] = useState([]);
+
+
     const [isLoading, setIsLoading] = useState(false);
     const [file, setFile] = useState("");
     const [filename, setFilename] = useState("No file selected");
-    const [value, setValue] = useState('CSM'); // Initial value
 
     const handleUpload = async (event) => {
         const file = event.target.files[0];
@@ -160,7 +184,7 @@ const Page = () => {
         formData.append('file', file);
 
         try {
-            const response = await fetch( API_URL_IN_USE + `csm/${value}`, {
+            const response = await fetch( API_URL_IN_USE + `csm`, {
                 method: 'POST',
                 body: formData,
             });
@@ -171,8 +195,14 @@ const Page = () => {
 
             let fetchedData = await response.json();
             // Add a unique id to each row
-            fetchedData = fetchedData.map((item, index) => ({ ...item, id: index }));
-            setData(fetchedData);
+
+            let fetchedDataCSM = fetchedData.CSM
+            fetchedDataCSM = fetchedDataCSM.map((item, index) => ({ ...item, id: index }));
+            setDataCSM(fetchedDataCSM);
+
+            let fetchedDataFULL = fetchedData.FULL
+            fetchedDataFULL = fetchedDataFULL.map((item, index) => ({ ...item, id: index }));
+            setDataFULL(fetchedDataFULL);
 
         } catch (error) {
             console.error('Error during file upload:', error.message);
@@ -182,6 +212,7 @@ const Page = () => {
         }
     };
 
+    const [tabValue, setTabValue] = useState(0);
 
 
 
@@ -211,19 +242,6 @@ const Page = () => {
                                 {filename === 'No file selected' ? < LuFile size={55} color="#5A6270"/> : <LuFileCheck2 size={55} color="#2FA769"/> }
                             </div>
 
-                            <div className="fileupload__content__overview">
-                                <button
-                                    onClick={() => setValue('CSM')}
-                                    className={`fileupload__content__overview--button label ${value === 'CSM' ? 'selected' : 'unselected'}`}>
-                                    CSM Overview
-                                </button>
-
-                                <button
-                                    onClick={() => setValue('FULL')}
-                                    className={`fileupload__content__overview--button label ${value === 'FULL' ? 'selected' : 'unselected'}`}>
-                                    Full Overview
-                                </button>
-                            </div>
                         </div>
 
 
@@ -236,21 +254,48 @@ const Page = () => {
 
 
                 <div className="csm__content__view">
-                    <DataGrid
+                    <Tabs
+                        value={tabValue}
+                        onChange={(event, newValue) => setTabValue(newValue)}
+                        indicatorColor="primary"
+                        textColor="primary"
+                    >
+                        <Tab label="CSM Overiview" />
+                        <Tab label="Full Overview" />
+                    </Tabs>
+                    {tabValue === 0 && (
+                        <DataGrid
 
-                        experimentalFeatures={{ columnGrouping: true }}
-                        columnGroupingModel={columnGroupingModel}
+                            experimentalFeatures={{ columnGrouping: true }}
+                            columnGroupingModel={columnGroupingModel}
 
-                        rows={data}
-                        columns={columns}
-                        pageSize={5}
-                        rowsPerPageOptions={[5]}
-                        stickyHeader = {true}
-/*
-                        checkboxSelection
-*/
-                        slots={{ toolbar: GridToolbar}}
-                    />
+                            rows={dataCSM}
+                            columns={columns}
+                            pageSize={5}
+                            rowsPerPageOptions={[5]}
+                            stickyHeader = {true}
+                            /*
+                                                    checkboxSelection
+                            */
+                            slots={{ toolbar: GridToolbar}}
+                        />                    )}
+                    {tabValue === 1 && (
+                        <DataGrid
+
+                            experimentalFeatures={{ columnGrouping: true }}
+                            columnGroupingModel={columnGroupingModel}
+
+                            rows={dataFULL}
+                            columns={columns}
+                            pageSize={5}
+                            rowsPerPageOptions={[5]}
+                            stickyHeader = {true}
+                            /*
+                                                    checkboxSelection
+                            */
+                            slots={{ toolbar: GridToolbar}}
+                        />                                   )}
+
                 </div>
 
 

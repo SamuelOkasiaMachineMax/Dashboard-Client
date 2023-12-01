@@ -19,32 +19,6 @@
 
 }
 
-.fileupload__content__overview{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1rem;
-
-}
-
-.fileupload__content__overview--button{
-    width: 200px;
-    height: 30px;
-
-    background-color: var(--white-color);
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-}
-
-.selected {
-    background-color: #1E6BE5;
-    color: white;
-}
-
-.unselected {
-    background-color: var(--white-color);
-}
-
 .csm__content__date{
     padding: 0.5rem;
     background-color: #F7F8FA;
