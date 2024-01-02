@@ -7,7 +7,9 @@ import Title from "@/components /title/title";
 import FileUpload from "@/components /fileUpload/fileUpload";
 
 import './page.css'
-import {LuFile, LuFileCheck2} from "react-icons/lu";
+import { LuFile, LuFileCheck2 } from "react-icons/lu";
+import { BeatLoader } from 'react-spinners';
+
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 const Page = () => {
@@ -241,6 +243,12 @@ const Page = () => {
                             <div className="fileupload__content__icon">
                                 {filename === 'No file selected' ? < LuFile size={55} color="#5A6270"/> : <LuFileCheck2 size={55} color="#2FA769"/> }
                             </div>
+                            {isLoading && (
+                                <div className="fileupload__content--spinner">
+                                    <BeatLoader color="#123abc" loading={isLoading} />
+                                </div>
+                            )}
+
 
                         </div>
 
@@ -263,6 +271,7 @@ const Page = () => {
                         <Tab label="CSM Overiview" />
                         <Tab label="Full Overview" />
                     </Tabs>
+
                     {tabValue === 0 && (
                         <DataGrid
 

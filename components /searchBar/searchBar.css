@@ -1,0 +1,11 @@
+
+.searchBar{
+    font-family: var(--font-quicksand);
+    font-size: 15px;
+    color: var(--fg-color-dark);
+    font-weight: 500;
+}
+
+.searchBar:focus{
+    outline: none;
+}

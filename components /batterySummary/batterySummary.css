@@ -1,0 +1,11 @@
+.alerts__content__battery{
+    display: flex;
+    flex-direction: column;
+    flex:1;
+
+    border: 1px solid var(--border-color);
+    max-height: 100%;
+    overflow: auto;
+
+}
+

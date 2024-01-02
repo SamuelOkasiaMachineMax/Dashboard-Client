@@ -1,132 +1,129 @@
 'use client'
 
-import { useState, useEffect } from 'react';
-import './page.css'
+import React, { useState } from 'react';
 import axios from 'axios';
-import { DataGrid } from '@mui/x-data-grid';
+import {DataGrid, GridToolbar} from '@mui/x-data-grid';
 import Title from "@/components /title/title";
-import {BiChevronDown} from "react-icons/bi";
-const Page = () => {
+import './page.css'
 
-    const API_URL_dev = "http://127.0.0.1:5000/FFTools"
-    const API_URL_prod= "https://samuelokasiamachinemax.pythonanywhere.com/FFTools/"
+import { MdLink } from "react-icons/md";
+import { ClipLoader } from "react-spinners";
+
+
+const Page = () => {
+    const API_URL = "http://127.0.0.1:5000";  // Adjust according to your backend URL
+    const API_URL_dev = "http://127.0.0.1:5000/"
+    const API_URL_prod= "https://samuelokasiamachinemax.pythonanywhere.com/"
+
+    const API_URL_IN_USE = API_URL_prod
+
+    const [latestData, setLatestData] = useState("");
+
 
     const [sensor, setSensor] = useState("");
-    const [rows, setRows] = useState([]);
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
-    const [filteredData, setFilteredData] = useState([]);
-    const [columns, setColumns] = useState([]);
-
-    const buttonList = ['Speed (km/h)', 'Accelerometer x (mg)', "Accelerometer y (mg)", "Accelerometer z (mg)", "GPS coordinates", "Movement", "Fuel", "GSM Signal"]
-    const [selectedButtons, setSelectedButtons] = useState([]);
-
-    const toggleButtonSelection = (buttonText) => {
-        setSelectedButtons(prevSelected => {
-            if (prevSelected.includes(buttonText)) {
-                // If the button is already selected, remove it from the list
-                return prevSelected.filter(text => text !== buttonText);
-            } else {
-                // If the button is not selected, add it to the list
-                return [...prevSelected, buttonText];
-            }
-        });
-    };
-
-    const handleFilter = () => {
-        console.log("Start Date:", startDate);
-        console.log("End Date:", endDate);
-
-        const filtered = rows.filter(item => {
-            const dateTime = new Date(item.dateTime);
-            console.log("Row Date:", dateTime);
-            return dateTime >= new Date(startDate) && dateTime <= new Date(endDate);
-        });
-
-        console.log("Filtered Data:", filtered);
-        setFilteredData(filtered);
-    };
+    const [rows, setRows] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
 
 
+    const fetchData = async () => {
+        if (!sensor || !startDate || !endDate){
+            setError("Please Select Date Range");
+            return;
 
-
-
-    useEffect(() => {
-        if (!sensor) return;
-
-        async function fetchData() {
-            try {
-                const response = await axios.get(`${API_URL_prod}/${selectedButtons}/${startDate}/${endDate}`);
-                const fetchedData = response.data["866907057595893"];
-
-                // Check if we received data and it's not empty
-                if (fetchedData && Object.keys(fetchedData).length > 0) {
-                    // We use the keys from the first entry to create columns
-                    const firstEntryKey = Object.keys(fetchedData)[0];
-                    const firstEntry = fetchedData[firstEntryKey];
-
-                    const dynamicColumns = Object.keys(firstEntry).map(key => ({
-                        field: key,
-                        headerName: key.replace(/_/g, ' ').replace(/(^\w|\s\w)/g, m => m.toUpperCase()), // Capitalize and replace underscores
-                        width: 200, // You might want to dynamically adjust this
-                        // other column properties if needed
-                    }));
-
-                    // Don't forget to add the 'dateTime' column as well if needed
-                    dynamicColumns.unshift({
-                        field: 'dateTime',
-                        headerName: 'Date Time',
-                        width: 200,
-                        // You can also add a value getter here to format date time if needed
-                    });
-
-                    setColumns(dynamicColumns); // Set the dynamic columns
-
-                    // Then format your rows
-                    const formattedRows = Object.keys(fetchedData).map((dateTime, id) => ({
-                        id,
-                        dateTime, // Make sure this is formatted as needed for display
-                        ...fetchedData[dateTime]
-                    }));
-
-                    console.log(formattedRows);
-
-                    setRows(formattedRows);
-                    setFilteredData(formattedRows); // set all fetched data as default
-                }
-            } catch (error) {
-                console.error("Error fetching the data: ", error);
-            }
         }
 
-        fetchData();
-    }, [sensor, selectedButtons, startDate, endDate]); // Make sure to include all dependencies here
+        setRows([])
+        setError('')
+        setIsLoading(true); // Start loading
+
+        try {
+            const response = await axios.post(`${API_URL_IN_USE}/FFTools/${sensor}/${startDate}/${endDate}`, {
+                sensor,
+                startDate,
+                endDate
+            });
+
+            const data = response.data.range_data;
+            const latest_data = response.data.latest_data
+
+            setLatestData(latest_data)
+            console.log(latest_data)
 
 
-  /*  const columns = [
-        { field: 'dateTime', headerName: 'Date Time', width: 200, filterable: true, type: 'dateTime', hide: true, valueGetter: (params) => new Date(params.value)},
-        { field: 'Speed (km/h)', headerName: 'Speed (km/h)', width: 150 },
-        { field: 'Accelerometer x (mg)', headerName: 'Accelerometer X (mg)', width: 200, filterable: true },
-        { field: 'Accelerometer y (mg)', headerName: 'Accelerometer Y (mg)', width: 200 },
-        { field: 'Accelerometer z (mg)', headerName: 'Accelerometer Z (mg)', width: 200 },
-        { field: 'GPS coordinates', headerName: 'GPS Coordinates', width: 200 },
-        { field: 'Movement', headerName: 'Movement', width: 150 },
-        { field: 'GSM signal', headerName: 'GSM Signal', width: 100 },
-        { field: 'GNSS status', headerName: 'GNSS Status', width: 200 },
-        { field: 'External voltage (mV)', headerName: 'External Voltage (mV)', width: 200 },
-        { field: 'Timestamp', headerName: 'Timestamp', width: 200 },
+            if (data && data.length > 0) {
 
-    ];*/
+                setRows(data.map((row, index) => ({ id: index, ...row })));
+                //
+                // if (data[0]) {
+                //     setColumns(Object.keys(data[0]).map(key => ({
+                //         field: key,
+                //         headerName: key.replace(/_/g, ' ').replace(/(^\w|\s\w)/g, m => m.toUpperCase()),
+                //         width: 150,
+                //     })));
+                // }
+            }
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        } finally {
+            setIsLoading(false); // Stop loading
+        }
+    };
+
+    const columns = [
+        {
+            field: 'read_at',
+            headerName: 'Time',
+            width: 350,
+            type: 'dateTime',
+            valueGetter: (params) => new Date(params.value),
+            valueFormatter: (params) => {
+                return params.value ? new Intl.DateTimeFormat('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                }).format(new Date(params.value)) : '';
+            }
+        },
+        { field: 'external_voltage', headerName: 'External Voltage', width: 250 },
+        { field: 'gsm_signal', headerName: 'GSM Signal', width: 150 },
+        // ... more columns as needed
+    ];
+
+    function DataItem({ keyName, value }) {
+        const renderValue = () => {
+            if (typeof value === 'string' && value.startsWith('http')) {
+                // Check if the value is a URL
+                return <a href={value} target="_blank" rel="noopener noreferrer"><MdLink size={30} color="#0057E2"/></a>;
+            } else {
+                // Default rendering for other data types
+                return String(value);
+            }
+        };
+
+        return (
+            <div className="FFTools__content__latest__content" key={keyName}>
+                <p className="label">{keyName}:</p>
+                <p className="text">{renderValue()}</p>
+            </div>
+        );
+    }
+
+
 
     return (
         <div className="FFTools">
             <Title title="FFTools"/>
 
             <div className="FFTools__content content__padding">
-
                 <div className="FFTools__content__input">
                     <p className="title--sub">Sensor IMEI</p>
-                    <input className="label"
+                    <input className="label FFTools__content__input--input"
                            value={sensor}
                            onChange={(e) => setSensor(e.target.value)}
                            placeholder="Enter sensor IMEI"/>
@@ -134,41 +131,49 @@ const Page = () => {
 
                 <div className="FFTools__content__range">
                     <p className="title--sub">Set Range</p>
-                    <input className=""
+                    <input
+                           className=" label datetime-local"
                            type="datetime-local"
                            value={startDate}
                            onChange={(e) => setStartDate(e.target.value)}
                     />
-                    <input className=""
+                    <input
+                        className="label"
                         type="datetime-local"
                         value={endDate}
                         onChange={(e) => setEndDate(e.target.value)}
                     />
-{/*
-                    <button className="button" onClick={handleFilter}>Filter</button>
-*/}
+                    <button className="button title--sub" onClick={fetchData}>Fetch Data</button>
+                    {isLoading && (
+                        <div className="fileupload__content--spinner">
+                            <ClipLoader color="#1976d2" loading={isLoading}/>
+                        </div>
+                    )}
+                    <p className="label error">{error}</p>
+
                 </div>
 
-                <div className="FFTools__content__variables">
-                    <p className="title--sub">Variables</p>
-                    {buttonList.map((buttonText, index) => (
-                        <button className="button"
-                            key={index}
-                            variant="outlined"
-                            style={{
-                                margin: '0.5em',
-                                backgroundColor: selectedButtons.includes(buttonText) ? '#4CAF50' : '#FFFFFF', // Change color when selected
-                                color: selectedButtons.includes(buttonText) ? '#FFFFFF' : '#000000',
-                            }}
-                            onClick={() => toggleButtonSelection(buttonText)}
-                        >
-                            {buttonText}
-                        </button>
-                    ))}
+                <div className="FFTools__content__latest ">
+                    <h1 className="title--sub">Latest Data</h1>
+                    <div className="data-container">
+                        {Object.entries(latestData).map(([key, value]) => (
+                            <DataItem keyName={key} value={value} key={key} />
+                        ))}
+                    </div>
+
+
+                </div>
+
+                <div className="FFTools__content__data">
+                    <div className="FFTools__content__data__title">
+                        <p className="title--sub">Data</p>
+                    </div>
+                    <DataGrid rows={rows} columns={columns} pageSize={5} slots={{ toolbar: GridToolbar}}
+                    />
                 </div>
 
 
-                <DataGrid rows={filteredData} columns={columns} pageSize={5} />
+
 
 
             </div>

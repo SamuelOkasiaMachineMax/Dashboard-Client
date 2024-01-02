@@ -2,51 +2,64 @@
 
 import React, {useEffect, useState} from 'react';
 import { DataGrid } from '@mui/x-data-grid';
+import { IoIosSearch } from "react-icons/io";
+
+import SearchBar from "@/components /searchBar/searchBar";
 import "./alerts.css"
-const Alerts = () => {
+import {ClipLoader} from "react-spinners";
+
+
+const fetchData = async () => {
+    const response = await fetch('http://localhost:5000/alerts'); // Replace with your backend URL
+    if (!response.ok) {
+        throw new Error('Data fetching failed');
+    }
+    return response.json();
+};
+const Alerts = ( {data, loading} ) => {
+
+    const [searchText, setSearchText] = useState('');
+
+    // Filter data based on search text
+    const filteredData = data.filter((row) => {
+        return Object.values(row).some((field) => {
+            // Check if the field is not null or undefined before calling toString
+            return field != null && field.toString().toLowerCase().includes(searchText.toLowerCase());
+        });
+    });
 
     const columns = [
-        { field: 'customer', headerName: 'Customer', width: 100 },
-        {
-            field: 'alert',
-            headerName: 'Alert',
-            width: 400,
-            renderCell: (params) => (
-                <div title={params.value}>
-                    <p className="MuiDataGrid-cellContent-alerts">{params.value}</p>
-                </div>
-            )
-        }
+        { field: 'customer', headerName: 'Customer', width: 150 },
+        { field: 'message', headerName: 'Alert', width: 500 },
+
     ];
 
-    const rows = [
-        { id: 1, customer: 'Zeppelin', alert: '12 Sensors will need a battery replacement soon' },
-        { id: 2, customer: 'Flannery', alert: '8 Sensors will need a battery replacement now' },
-        { id: 3, customer: 'Flannery', alert: '8 Sensors are likely in a area with low signal' },
-        { id: 4, customer: 'US Sugar', alert: '8 Sensors have likely been connected to the wrong power source' },
-        { id: 5, customer: 'Imery', alert: '2 Sensors have been disconnected' }
-    ];
+
 
     return (
         <div className="alerts">
-            <div className='alerts__header content__sub__padding'>
-                <p className='alerts--title title--sub'>Alerts</p>
-                <div className='alerts__header__search'>
-                    <input
-                        className="alerts__header__search--search"
-                        type="text"
-                        placeholder="Search"
-                    />
-                </div>
-            </div>
+
             <div className="alerts__content">
-                <DataGrid rows={rows} columns={columns} pageSize={5} />
+
+                <div>
+                    <div className='alerts__header content__sub__padding'>
+                        <p className='alerts__header--title title--sub'>Alerts</p>
+                        <div className='alerts__header__search'>
+                            <IoIosSearch/>
+                            <SearchBar onSearch={(text) => setSearchText(text)} />
+                            {loading && (
+                                <div className="fileupload__content--spinner">
+                                    <ClipLoader color="#1976d2" loading={loading}/>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                    <DataGrid rows={filteredData} columns={columns} pageSize={5}  getRowId={(row) => row.customer + row.message} />
+
+                </div>
+
 
             </div>
-
-
-
-
         </div>
     );
 };

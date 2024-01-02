@@ -48,3 +48,7 @@
 .fileupload__content__icon{
     margin: auto 0;
 }
+
+.fileupload__content--spinner{
+    margin: auto 1rem;
+}

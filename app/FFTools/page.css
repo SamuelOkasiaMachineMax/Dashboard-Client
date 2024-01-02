@@ -3,12 +3,15 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+
 }
 
 .FFTools__content{
     width: 100%;
     display: flex;
     flex-direction: column;
+
+
 }
 
 .FFTools__content__input{
@@ -18,16 +21,31 @@
     flex-direction: row;
 
     gap: 0.5rem;
+
+    border: 1px solid var(--border-color);
+    border-bottom: none;
+}
+
+.FFTools__content__input--input{
+    padding: 0 0.3rem;
 }
 
 .FFTools__content__range{
     display: flex;
     flex-direction: row;
+    align-items: center;
+
     background-color: var(--white-color);
 
     padding: 1rem;
-    gap:1rem
+    gap: 1rem;
 
+    border: 1px solid var(--border-color);
+
+}
+
+.FFTools__content__range input{
+    width: 150px;
 }
 
 .FFTools__content__variables{
@@ -37,4 +55,61 @@
     align-items: center;
     background-color: var(--white-color);
 
+}
+
+.FFTools__content__latest{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+
+    gap: 1rem;
+
+    border: 1px solid var(--border-color);
+    border-top: none;
+
+}
+
+.FFTools__content__latest h1{
+    color: #1976d2;
+}
+
+.data-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.FFTools__content__latest__content{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.FFTools__content__data{
+    margin-top: 1rem;
+    border: 1px solid var(--border-color);
+}
+
+.FFTools__content__data__title{
+    padding: 1rem;
+}
+
+.FFTools__content__data__title p{
+    color: #1976d2;
+}
+
+.error{
+    color: #EA5161;
+}
+
+.MuiDataGrid-cell{
+    white-space: nowrap !important;  /* Prevents text from wrapping to the next line */
+    overflow: hidden !important;     /* Hides content that overflows the cell's box */
+    text-overflow: clip !important;
+}
+.MuiDataGrid-cellContent{
+    white-space: nowrap !important;  /* Prevents text from wrapping to the next line */
+    overflow: hidden !important;     /* Hides content that overflows the cell's box */
+    text-overflow: clip !important;
 }

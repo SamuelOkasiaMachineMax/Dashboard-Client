@@ -1,15 +1,13 @@
 .alerts{
-    flex: 1;
     display: flex;
     flex-direction: column;
 
-    width: 50%;
-    background-color: var(--white-color);
     border: 1px solid var(--border-color);
 }
 
 .alerts__header{
     display: flex;
+    gap: 2rem;
     align-items: center;
     background-color: var(--white-color);
     width: 100%;
@@ -20,7 +18,9 @@
 }
 
 .alerts__header__search{
-    margin: 1rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .alerts__header__search--search{
@@ -34,4 +34,9 @@
     outline: none;
 }
 
-
+.alerts__content{
+    display: flex;
+    gap: 2rem;
+    max-height: 100%; /* Restrict to parent's height */
+    overflow: auto;
+}

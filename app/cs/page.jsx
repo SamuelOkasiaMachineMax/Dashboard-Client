@@ -1,12 +1,14 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Select from 'react-select';
 
 import Title from "@/components /title/title";
 
 import "./page.css"
-import {ToggleButton, ToggleButtonGroup} from "@mui/material";
+import {TextField, ToggleButton, ToggleButtonGroup} from "@mui/material";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 const Page = () => {
 
         const [email, setEmail] = useState('');
@@ -34,30 +36,77 @@ const Page = () => {
             // Handle form submission logic here
         }
 
+    const [selectedTab, setSelectedTab] = useState('Token');
 
-        const menu = ['Token', 'API', 'User', 'Manu-\nfacturer', 'Machine', 'Source Check']
+    const [inputValue, setInputValue] = useState('');
+    const generateInitialJson = (fields) => {
+        const initialObject = fields.reduce((obj, field) => {
+            obj[field] = '';
+            return obj;
+        }, {});
+        return JSON.stringify(initialObject, null, 2);
+    };
 
-        const options = [
+    useEffect(() => {
+        // Update the inputValue when the selectedTab changes
+        setInputValue(generateInitialJson(tabData[selectedTab]));
+    }, [selectedTab]);
+
+    const handleInputChange = (event) => {
+        setInputValue(event.target.value);
+    };
+
+
+    const tabData = {
+        'Token': ['email', 'username'],
+        'User': ['email', 'name', 'lastname', 'role', 'organisation'],
+        'Manufacturer': ['manufacturer'],
+        'Machine': ['email', 'password'],
+        'SourceCheck': ['orgID', 'Source']
+    };
+
+    const handleTabChange = (event, newValue) => {
+        setSelectedTab(newValue);
+    };
+
+
+    const options = [
             { value: '123', label: 'Flannery' },
             { value: '456', label: 'Plantforce' },
             { value: '679', label: 'PotterPlant' }
         ]
 
-    const createUser = ['email','name','lastname','role','organisation']
+    const Token = ['email', 'username']
+    const User = ['email','name','lastname','role','organisation']
+    const Manufacturer = ['manufacturer']
+    const Machine = ['email', 'password']
+    const SourceCheck = ['orgID', 'Source']
 
     return (
         <div className="cs">
             <Title title="Customer Service" />
             <div className="cs__content section__padding">
-                <div className="cs__content__menu">
-                    {
-                        menu.map((item, index)=>   (
 
-                            <button key={index} className="cs__content__menu--button title--sub">
-                                {item}
-                            </button>
-
+                <div className="cs__content__tabHeader">
+                    <Tabs value={selectedTab} onChange={handleTabChange}>
+                        {Object.keys(tabData).map((tabName) => (
+                            <Tab label={tabName} value={tabName} key={tabName} />
                         ))}
+                    </Tabs>
+                </div>
+
+
+                <div className="cs__content__tabs">
+                    <TextField
+                        label={`${selectedTab} Data`}
+                        multiline
+                        rows={10}
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        value={inputValue}
+                        onChange={handleInputChange}
+                    />
                 </div>
 
 

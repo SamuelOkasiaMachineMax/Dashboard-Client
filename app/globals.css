@@ -62,6 +62,13 @@
   padding: 0 0.5rem;
 
   cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button:active {
+  background-color: #EDF5FC;
+
+  transform: scale(0.95); /* Makes the button slightly smaller */
 }
 
 .button__box{
@@ -77,6 +84,10 @@
   font-size: 14px;
 }
 
+.text{
+  font-family: var(--font-poppins) !important;
+  color: var(--fg-color-dark);
+}
 
 
 
@@ -115,9 +126,9 @@
   padding: 0 0.5rem !important;  /* Adjust as needed */
   margin: 2.5rem 0 !important;
 
-  width: 150px !important;
+  /*width: 150px !important;*/
   min-width: 150px !important;
-  max-width: 150px !important;
+  /*max-width: 150px !important;*/
 
   white-space: nowrap;
   overflow: hidden;
@@ -135,4 +146,8 @@
   text-overflow: ellipsis;
 
   width:100% !important;
+}
+
+.MuiDataGrid-toolbarContainer{
+  padding: 0.5rem 1rem !important;
 }
