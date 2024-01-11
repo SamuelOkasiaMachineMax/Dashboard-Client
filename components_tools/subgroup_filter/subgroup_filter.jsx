@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import "./subgroup_filter.css"
 
 import Select from 'react-select';
+import { ClipLoader } from "react-spinners";
 
 
 const SubgroupFilter = () => {
@@ -10,9 +11,13 @@ const SubgroupFilter = () => {
     const API_URL_dev = "http://127.0.0.1:5000/"
     const API_URL_prod= "https://samuelokasiamachinemax.pythonanywhere.com/"
 
+    const API_IN_USE = API_URL_prod
+
     const [customerData, setCustomerData] = useState({});
     const [selectedKey, setSelectedKey] = useState('');
     const [subOrganizations, setSubOrganizations] = useState([]);
+    const [filename, setFilename] = useState("");
+
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -20,12 +25,11 @@ const SubgroupFilter = () => {
 
     useEffect(() => {
         // Replace with your actual endpoint URL
-        fetch(API_URL_prod+`/api/CustomerFilter/view`, {
-            method: 'POST',
+        fetch(API_IN_USE+`OrgToSubOrg`, {
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({}) // Sending an empty object
         })
             .then((response) => {
                 if (!response.ok) {
@@ -51,13 +55,14 @@ const SubgroupFilter = () => {
         if (selectedOption) {
             setSelectedKey(selectedOption.value);
             setSubOrganizations(customerData[selectedOption.value]);
+            setFilename(null)
+            console.log(subOrganizations)
         } else {
             setSelectedKey('');
             setSubOrganizations([]);
         }
     };
 
-    const [filename, setFilename] = useState("");
     const handleUpload = async (event) => {
         const file = event.target.files[0];
 
@@ -68,13 +73,17 @@ const SubgroupFilter = () => {
         }
 
         setIsLoading(true); // Start loading
+
         const formData = new FormData();
         formData.append('file', file);
 
+        // Add the JSON data to the FormData
+        formData.append('data', JSON.stringify({ value: subOrganizations }));
+
         try {
-            const response = await fetch(API_URL_prod + `/api/CustomerFilter/${subOrganizations}`, {
+            const response = await fetch(API_IN_USE + 'api/CustomerFilter', {
                 method: 'POST',
-                body: formData,
+                body: formData, // Send the FormData
             });
 
             if (!response.ok) {
@@ -85,11 +94,12 @@ const SubgroupFilter = () => {
             setFilename(data.filename);
         } catch (error) {
             console.error('Error during file upload:', error.message);
-            // Optionally, you can handle the error in the UI, e.g., by setting an error state and displaying it
+            // Optionally, handle the error in the UI
         } finally {
             setIsLoading(false); // Stop loading
         }
     };
+
 
 
     return (
@@ -119,7 +129,9 @@ const SubgroupFilter = () => {
                     <label htmlFor="fileUpload" className="geofence__content__file--label title--sub button__box">Upload File +
                     </label>
                 </div>
-                {isLoading && <p className="subgrpfltr__upload--loading label">Loading...</p>}
+                {/*{isLoading && <p className="subgrpfltr__upload--loading label">Loading...</p>}*/}
+
+                {isLoading && <ClipLoader color="#1976d2" loading={isLoading}/>}
                 {filename && <a className="subgrpfltr__upload--download label" href={`${API_URL_prod}api/download/${filename}`} download>Download Processed File</a>}
             </div>
 
@@ -128,5 +140,6 @@ const SubgroupFilter = () => {
         </div>
     );
 };
+
 
 export default SubgroupFilter;

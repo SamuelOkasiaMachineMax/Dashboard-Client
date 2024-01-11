@@ -24,6 +24,9 @@
 
 .subgrpfltr__upload{
     display: flex;
+    align-items: center;
+    gap: 1rem;
+
 
 }
 .subgrpfltr__upload__download{
