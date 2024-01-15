@@ -36,9 +36,11 @@
 
 .subgrpfltr__upload--download{
    margin-left: 1rem;
+    color: #0057E2;
 }
 
 .subgrpfltr__upload--loading{
     margin-left: 1rem;
     color: green;
 }
+
