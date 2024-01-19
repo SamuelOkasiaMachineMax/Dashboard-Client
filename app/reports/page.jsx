@@ -9,94 +9,81 @@ import Title from "@/components /title/title";
 import Report_exp from "@/components /report_exp/report_exp";
 import ExcelDataGrid from "@/components /excelDataGrid/excelDataGrid";
 import {DataGrid, GridToolbar} from "@mui/x-data-grid";
+import {ClipLoader} from "react-spinners";
 const Page = () => {
-    const API_URL_dev = "http://127.0.0.1:5000/"
-    const API_URL_prod= "https://samuelokasiamachinemax.pythonanywhere.com/"
-    const [customerOrg, setCustomerOrg] = useState('')
-    const [customerName, setCustomerName] = useState('')
+    const API_URL_DEV = "http://127.0.0.1:5000/";
+    const API_URL_PROD = "https://samuelokasiamachinemax.pythonanywhere.com/";
+    const API_IN_USE = API_URL_PROD;
 
-    const [tableData, setTableData] = useState([]);
+    const [customerOrg, setCustomerOrg] = useState('');
+    const [customerName, setCustomerName] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [triggerDownload, setTriggerDownload] = useState(false);
+
+    // Function to download Excel file
+    const downloadExcel = (blob, filename) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+    };
 
     useEffect(() => {
-        // Fetch data from the endpoint using selectedValue
-        if (customerOrg) {
-            // Example: Fetch data from an API based on selectedValue
-            fetch(API_URL_dev + `reports-data_completeness/${customerOrg}`)
-                .then((response) => response.json())
-                .then((data) => {
-
-                    if (data && data.report && Array.isArray(data.report)) {
-                        // Assuming 'report' is the key containing the array of data
-                        setTableData(data.report.map((row, index) => ({ id: index, ...row })));
-                        console.log(customerName)
-                    } else {
-                        console.error('Invalid data format received from the server');
-                    }
-                })
-                .catch((error) => {
-                    console.error('Error fetching data:', error);
-                });
-        }
-    }, [customerOrg]);
+        // Function to fetch data or Excel file
+        const fetchData = async () => {
+            if (!triggerDownload || !customerOrg) return;
 
 
+            setIsLoading(true); // Start loading
 
+            try {
+                const response = await fetch(API_IN_USE + `reports-data_completeness/${customerOrg}`);
+                const contentType = response.headers.get("content-type");
 
-    const columns = [
+                if (contentType && contentType.includes("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")) {
+                    const blob = await response.blob();
+                    downloadExcel(blob, `Data_completeness_${customerName}.xlsx`);
+                } else {
+                    const data = await response.json();
+                    // Process JSON data as required
+                    // Example: setTableData(data);
+                    console.log(customerName);
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            } finally {
+                setIsLoading(false);
+                setTriggerDownload(false); // Reset trigger for next download
+            }
+        };
 
-        { field: 'status', headerName: 'status', width: 250 },
-        { field: 'asset_id', headerName: 'Asset ID', width: 150 },
-        { field: 'model', headerName: 'Model', width: 150 },
-        { field: 'deveui', headerName: 'IMEI', width: 150 },
-        { field: 'last_updated_at', headerName: 'Time', width: 150 },
-        { field: 'data_completeness', headerName: 'Data Completeness', width: 150 },
-
-
-
-    ];
+        fetchData();
+    }, [customerOrg, triggerDownload]); // Include triggerDownload as a dependency
 
     return (
         <div className="report">
             <Title title="Reports"/>
-
             <div className="report__content content__padding">
                 <div className="report__content__header">
-                    <div className="report__content__header--title">
+                    <div className="report__content__header__title">
                         <p className="title--sub">Reports</p>
+                        {isLoading && <ClipLoader color="#1976d2" loading={isLoading}/>}
                     </div>
                     <div className="report__content__header--reports">
-                            <Report_exp
-                                ssetCustomerOrg={setCustomerOrg} ssetCustomerName={setCustomerName}
-                            />
-                    </div>
-
-                </div>
-
-
-                <div className="report__content__view">
-                    <div className="report__content__view__header">
-                        <p className="title--sub">{customerName}</p>
-                        <p className="label">{customerOrg}</p>
-                    </div>
-                    <div className="report__content__view__table">
-                        <DataGrid rows={tableData} columns={columns} pageSize={5} slots={{ toolbar: GridToolbar}}/>
+                        <Report_exp
+                            ssetCustomerOrg={(org) => {
+                                setCustomerOrg(org);
+                                setTriggerDownload(true); // Trigger download when a new organization is selected
+                            }}
+                            ssetCustomerName={setCustomerName}
+                        />
                     </div>
                 </div>
-
-
-
-                {/* <div className="report__content__view">
-                    <div className="report__content__view__header">
-                        <SelectCustomer onCustomerSelect={handleCustomerSelect} />
-                        {selectedCustomerName && < SensorDashboard customerName={selectedCustomerName} />}
-
-                    </div>
-                </div>*/}
-
-
-
             </div>
-
         </div>
     );
 };

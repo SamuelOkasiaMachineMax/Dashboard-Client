@@ -19,12 +19,13 @@
     background-color: var(--white-color);
     border: 1px solid var(--border-color);
 }
-.report__content__header--title{
+.report__content__header__title{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
     background-color: var(--white-color);
 }
-.report__content__header--title p{
+.report__content__header__title p{
     margin: 1rem;
 }
 

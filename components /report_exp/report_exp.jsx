@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import "./reportEXP.css";
 import { GoArrowRight } from "react-icons/go";
 import Select from "react-select";
+import {ClipLoader} from "react-spinners";
 
 const ReportExp = ({ ssetCustomerOrg, ssetCustomerName }) => {
     const API_URL_dev = "http://127.0.0.1:5000";
@@ -13,6 +14,7 @@ const ReportExp = ({ ssetCustomerOrg, ssetCustomerName }) => {
 
 
     useEffect(() => {
+
         const fetchCustomerData = async () => {
             try {
                 const response = await fetch(API_URL_dev + '/customer-select');
@@ -40,7 +42,7 @@ const ReportExp = ({ ssetCustomerOrg, ssetCustomerName }) => {
 
     const handleChange = (selectedOption) => {
         setSelectedOption(selectedOption);
-        ssetCustomerName(selectedOption.name)
+        ssetCustomerName(selectedOption.label)
         if (selectedOption && selectedOption.value) {
             console.log('Selected value:', selectedOption.value);
             // You can use the selected value in your code as needed.
@@ -52,7 +54,7 @@ const ReportExp = ({ ssetCustomerOrg, ssetCustomerName }) => {
     return (
         <div className="reportEXP">
             <div className="reportEXP__content">
-                <p className="title--sub">Data Completeness</p>
+                    <p className="title--sub">Data Completeness</p>
                 <Select
                     options={options}
                     value={selectedOption}

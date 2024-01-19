@@ -14,6 +14,12 @@
     gap: 1rem;
 }
 
+.reportEXP__content__title{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .reportEXP__actions{
     display: flex;
     flex-direction: column;
