@@ -7,8 +7,10 @@ import Select from "react-select";
 import {ClipLoader} from "react-spinners";
 
 const ReportExp = ({ ssetCustomerOrg, ssetCustomerName }) => {
-    const API_URL_dev = "http://127.0.0.1:5000";
+    const API_URL_DEV = "http://127.0.0.1:5000/";
+    const API_URL_PROD = "https://samuelokasiamachinemax.pythonanywhere.com/";
 
+    const API_IN_USE = API_URL_PROD;
     const [customerData, setCustomerData] = useState([]);
     const [selectedOption, setSelectedOption] = useState(null);
 
@@ -17,7 +19,7 @@ const ReportExp = ({ ssetCustomerOrg, ssetCustomerName }) => {
 
         const fetchCustomerData = async () => {
             try {
-                const response = await fetch(API_URL_dev + '/customer-select');
+                const response = await fetch(API_IN_USE + '/customer-select');
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
