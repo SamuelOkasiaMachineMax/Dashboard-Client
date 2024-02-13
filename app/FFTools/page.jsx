@@ -42,7 +42,7 @@ const Page = () => {
         setIsLoading(true); // Start loading
 
         try {
-            const response = await axios.post(`${API_URL_IN_USE}/FFToolsPro/${sensor}/${startDate}/${endDate}`, {
+            const response = await axios.post(`${API_URL_IN_USE}FFToolsPro/${sensor}/${startDate}/${endDate}`, {
                 sensor,
                 startDate,
                 endDate

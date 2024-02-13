@@ -18,7 +18,7 @@ const Page = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post(`${API_URL_IN_USE}/loginn`, {
+            const response = await axios.post(`${API_URL_IN_USE}loginn`, {
                 username,
                 password,
             });
