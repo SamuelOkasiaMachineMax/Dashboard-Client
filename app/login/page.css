@@ -1,0 +1,31 @@
+.title{
+    font-family: var(--font-poppins);
+    color: #5A6270;
+    font-weight: 400;
+    font-size: 26px;
+    margin-top: 20px;
+    margin-left: 2rem;
+}
+
+.login{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+
+    background-color: var(--bg-color);
+}
+.login-form{
+    display: flex;
+    gap: 1rem;
+}
+
+
+.username-input, .password-input {
+    border-radius: 12px;
+    height: 25px;
+    padding: 0.5rem;
+}

@@ -1,6 +1,8 @@
 'use client'
 
 import React, {useState, useEffect} from "react";
+import {usePathname, useRouter} from 'next/navigation';
+
 import axios from 'axios';
 
 import "./page.css"
@@ -14,6 +16,22 @@ import VoltageSummary from "@/components /voltageSummary/voltageSummary";
 
 
 export default function Home() {
+    const router = useRouter();
+    const pathname = usePathname();
+    const [showPage, setShowPage] = useState(false);
+
+
+    useEffect(() => {
+        // Check if the user is authenticated
+        const auth = localStorage.getItem('auth');
+        if (!auth) {
+            // If not authenticated, redirect to the login page
+            router.push('/login');
+        }
+        else {
+            setShowPage(true)
+        }
+    }, [router]);
 
     const API_URL = "http://127.0.0.1:5000";  // Adjust according to your backend URL
     const API_URL_dev = "http://127.0.0.1:5000/"
@@ -55,14 +73,19 @@ export default function Home() {
 
   return (
     <div className="home">
-      <Title title = "Home"/>
-        <div className="home__content section__padding">
-            <Alerts data={data} loading={loading}/>
-            <div className="home__content__content">
-                <BatterySummary data={batteryData} loading={loading}/>
-                <VoltageSummary data = {voltageData} loading={loading}/>
+        { showPage &&
+            <>
+              <Title title = "Home"/>
+                <div className="home__content section__padding">
+                    <Alerts data={data} loading={loading}/>
+                    <div className="home__content__content">
+                        <BatterySummary data={batteryData} loading={loading}/>
+                        <VoltageSummary data = {voltageData} loading={loading}/>
+                    </div>
             </div>
-        </div>
+            </>
+        }
+
     </div>
   )
 }

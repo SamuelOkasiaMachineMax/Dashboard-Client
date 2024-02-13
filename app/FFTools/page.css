@@ -1,5 +1,6 @@
 .FFTools{
-    width: 100%;
+    /*width: 100%;*/
+    flex: 1;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -84,6 +85,15 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+}
+
+.FFTools__content__graph{
+    margin-top: 2rem;
+    max-width: 100%;
+    overflow-x: auto;
+
+    border: 1px solid var(--border-color);
+    border-top: none;
 }
 
 .FFTools__content__data{

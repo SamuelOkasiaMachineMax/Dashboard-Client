@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import {DataGrid, GridToolbar} from '@mui/x-data-grid';
+import VoltageGraph from "@/components /voltageGraph/voltageGraph";
+import GraphTabs from "@/components /graphTabs/graphTabs";
 import Title from "@/components /title/title";
 import './page.css'
 
@@ -40,7 +42,7 @@ const Page = () => {
         setIsLoading(true); // Start loading
 
         try {
-            const response = await axios.post(`${API_URL_IN_USE}/FFTools/${sensor}/${startDate}/${endDate}`, {
+            const response = await axios.post(`${API_URL_IN_USE}/FFToolsPro/${sensor}/${startDate}/${endDate}`, {
                 sensor,
                 startDate,
                 endDate
@@ -90,8 +92,14 @@ const Page = () => {
                 }).format(new Date(params.value)) : '';
             }
         },
-        { field: 'external_voltage', headerName: 'External Voltage', width: 250 },
+        { field: 'external_voltage', headerName: 'External Voltage', width: 200 },
         { field: 'gsm_signal', headerName: 'GSM Signal', width: 150 },
+        { field: 'gnss_status', headerName: 'GNSS Status', width: 150 },
+        { field: 'speed', headerName: 'Speed', width: 150 },
+        { field: 'movement', headerName: 'Movement', width: 150 },
+
+
+
         // ... more columns as needed
     ];
 
@@ -164,10 +172,16 @@ const Page = () => {
 
                 </div>
 
+                <div className='FFTools__content__graph'>
+                    {/*<VoltageGraph rows={rows} startDate={startDate} endDate={endDate}/>*/}
+                    <GraphTabs rows={rows} startDate={startDate} endDate={endDate}/>
+                </div>
+
                 <div className="FFTools__content__data">
                     <div className="FFTools__content__data__title">
                         <p className="title--sub">Data</p>
                     </div>
+
                     <DataGrid rows={rows} columns={columns} pageSize={5} slots={{ toolbar: GridToolbar}}
                     />
                 </div>
