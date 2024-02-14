@@ -6,7 +6,11 @@ import Metrics from "@/components /metrics/metrics";
 import dashboard from "@/components /dashboard/dashboard";
 import Dashboard from "@/components /dashboard/dashboard";
 import Title from "@/components /title/title";
+import {useRouter} from "next/navigation";
 const Page = () => {
+
+    const router = useRouter();
+    const [showPage, setShowPage] = useState(false);
 
     useEffect(() => {
         // Check if the user is authenticated
