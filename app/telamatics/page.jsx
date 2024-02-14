@@ -10,8 +10,12 @@ import './page.css'
 import TelematicsTable from "@/components /telamaticsTable/telematicsTable";
 import axios from "axios";
 import { DataGrid } from '@mui/x-data-grid';
+import {useRouter} from "next/navigation";
 
 const Page = () => {
+    const router = useRouter();
+    const [showPage, setShowPage] = useState(false);
+
     const [data, setData] = useState([]);
     const [currentCustomer, setCurrentCustomer] = useState("Select Customer");
 

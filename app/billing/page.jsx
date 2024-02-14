@@ -8,6 +8,18 @@ import Dashboard from "@/components /dashboard/dashboard";
 import Title from "@/components /title/title";
 const Page = () => {
 
+    useEffect(() => {
+        // Check if the user is authenticated
+        const auth = localStorage.getItem('auth');
+        if (!auth) {
+            // If not authenticated, redirect to the login page
+            router.push('/login');
+        }
+        else {
+            setShowPage(true)
+        }
+    }, [router]);
+
     const [customers, setCustomers] = useState([]);
 
     useEffect(() => {

@@ -10,9 +10,29 @@ import './page.css'
 import { LuFile, LuFileCheck2 } from "react-icons/lu";
 import { BeatLoader } from 'react-spinners';
 
+
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import {usePathname, useRouter} from "next/navigation";
 const Page = () => {
+
+    const router = useRouter();
+    const [showPage, setShowPage] = useState(false);
+
+    useEffect(() => {
+        // Check if the user is authenticated
+        const auth = localStorage.getItem('auth');
+        if (!auth) {
+            // If not authenticated, redirect to the login page
+            router.push('/login');
+            console.log('not authed')
+
+        }
+        else {
+            console.log('authed')
+            setShowPage(true)
+        }
+    }, [router]);
 
     const API_URL_dev = "http://127.0.0.1:5000/"
     const API_URL_prod= "https://samuelokasiamachinemax.pythonanywhere.com/"

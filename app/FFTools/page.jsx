@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {DataGrid, GridToolbar} from '@mui/x-data-grid';
 import VoltageGraph from "@/components /voltageGraph/voltageGraph";
@@ -10,14 +10,31 @@ import './page.css'
 
 import { MdLink } from "react-icons/md";
 import { ClipLoader } from "react-spinners";
+import {useRouter} from "next/navigation";
 
 
 const Page = () => {
+
+    const router = useRouter();
+    const [showPage, setShowPage] = useState(false);
+
+    useEffect(() => {
+        // Check if the user is authenticated
+        const auth = localStorage.getItem('auth');
+        if (!auth) {
+            // If not authenticated, redirect to the login page
+            router.push('/login');
+        }
+        else {
+            setShowPage(true)
+        }
+    }, [router]);
+
     const API_URL = "http://127.0.0.1:5000";  // Adjust according to your backend URL
     const API_URL_dev = "http://127.0.0.1:5000/"
     const API_URL_prod= "https://samuelokasiamachinemax.pythonanywhere.com/"
 
-    const API_URL_IN_USE = API_URL_prod
+    const API_URL_IN_USE = API_URL_dev
 
     const [latestData, setLatestData] = useState("");
 

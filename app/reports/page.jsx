@@ -10,7 +10,12 @@ import Report_exp from "@/components /report_exp/report_exp";
 import ExcelDataGrid from "@/components /excelDataGrid/excelDataGrid";
 import {DataGrid, GridToolbar} from "@mui/x-data-grid";
 import {ClipLoader} from "react-spinners";
+import {useRouter} from "next/navigation";
 const Page = () => {
+
+    const router = useRouter();
+    const [showPage, setShowPage] = useState(false);
+
     const API_URL_DEV = "http://127.0.0.1:5000/";
     const API_URL_PROD = "https://samuelokasiamachinemax.pythonanywhere.com/";
     const API_IN_USE = API_URL_PROD;

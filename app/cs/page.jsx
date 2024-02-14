@@ -9,32 +9,47 @@ import "./page.css"
 import {TextField, ToggleButton, ToggleButtonGroup} from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import {useRouter} from "next/navigation";
 const Page = () => {
+    const router = useRouter();
+    const [showPage, setShowPage] = useState(false);
 
-        const [email, setEmail] = useState('');
-        const [error, setError] = useState('');
-        const companies = ['Flannery', 'Plantforce'];
-        const [choice , setChoice] = useState('');
-
-        const handleEmailChange = (e) => {
-            const emailValue = e.target.value;
-            setEmail(emailValue);
-
-            // Reset error message
-            setError('');
-
-            // Check if email contains multiple company names
-            const matchedCompanies = companies.filter(company => emailValue.toLowerCase().includes(company.toLowerCase()));
-
-            if (email.includes('flannery')) {
-                setError('Action not allowed: Email address cannot be created with Organisation');
-            }
+    useEffect(() => {
+        // Check if the user is authenticated
+        const auth = localStorage.getItem('auth');
+        if (!auth) {
+            // If not authenticated, redirect to the login page
+            router.push('/login');
         }
-
-        const handleSubmit = (e) => {
-            e.preventDefault();
-            // Handle form submission logic here
+        else {
+            setShowPage(true)
         }
+    }, [router]);
+
+    const [email, setEmail] = useState('');
+    const [error, setError] = useState('');
+    const companies = ['Flannery', 'Plantforce'];
+    const [choice , setChoice] = useState('');
+
+    const handleEmailChange = (e) => {
+        const emailValue = e.target.value;
+        setEmail(emailValue);
+
+        // Reset error message
+        setError('');
+
+        // Check if email contains multiple company names
+        const matchedCompanies = companies.filter(company => emailValue.toLowerCase().includes(company.toLowerCase()));
+
+        if (email.includes('flannery')) {
+            setError('Action not allowed: Email address cannot be created with Organisation');
+        }
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Handle form submission logic here
+    }
 
     const [selectedTab, setSelectedTab] = useState('Token');
 
